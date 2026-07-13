@@ -402,12 +402,11 @@ namespace clap { namespace helpers {
    // clap_host_param_hovered //
    /////////////////////////////
    template <MisbehaviourHandler h, CheckingLevel l>
-   bool HostProxy<h, l>::canUseParamHovered() const noexcept
-   {
+   bool HostProxy<h, l>::canUseParamHovered() const noexcept {
       if (!_hostParamHovered)
          return false;
 
-      if (_hostParamHovered && _hostParamHovered->update)
+      if (_hostParamHovered->update)
          return true;
 
       hostMisbehaving("clap_host_param_hovered is partially implemented");
@@ -415,8 +414,7 @@ namespace clap { namespace helpers {
    }
 
    template <MisbehaviourHandler h, CheckingLevel l>
-   void HostProxy<h, l>::paramHoveredUpdate(clap_id hovered_param_id) const noexcept
-   {
+   void HostProxy<h, l>::paramHoveredUpdate(clap_id hovered_param_id) const noexcept {
       assert(canUseParamHovered());
       ensureMainThread("param_hovered.update");
       _hostParamHovered->update(_host, hovered_param_id);
